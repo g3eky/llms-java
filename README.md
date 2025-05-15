@@ -1,4 +1,4 @@
-# LLMs Java Projects
+# Using LLMs with Java
 
 A collection of projects that utilize Large Language Models (LLMs) for various tasks.
 
