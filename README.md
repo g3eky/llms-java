@@ -103,12 +103,13 @@ if (baseUrl != null && !baseUrl.isEmpty()) {
 String prompt = "Write a one-sentence bedtime story about a unicorn.";
 
 try {
-    // Make the API call
-    String response = client.generateResponse(null, prompt);
+    // Make the API call using the model set in constructor
+    String response = client.generateResponse(prompt);
     System.out.println("Response: " + response);
     
-    // Or with a specific model
-    response = client.generateResponse("gpt-3.5-turbo", prompt);
+    // Or change the model and make another request
+    client.setModel("gpt-3.5-turbo");
+    response = client.generateResponse(prompt);
     System.out.println("Response: " + response);
     
 } catch (Exception e) {

@@ -34,12 +34,10 @@ public class OpenAIClient implements LLMClient {
     }
     
     @Override
-    public String generateResponse(String model, String input) throws Exception {
-        String requestModel = model != null ? model : this.model;
-        
-        // Using chat completions API instead of responses API
+    public String generateResponse(String input) throws Exception {
+        // Using chat completions API
         JSONObject requestBody = new JSONObject();
-        requestBody.put("model", requestModel);
+        requestBody.put("model", this.model);
         
         // Set up messages for the chat completion
         JSONArray messages = new JSONArray();
@@ -100,7 +98,7 @@ public class OpenAIClient implements LLMClient {
     }
     
     /**
-     * Sets the default model to use for requests
+     * Sets the model to use for requests
      * 
      * @param model The model name (e.g., "gpt-4.1")
      */

@@ -1,6 +1,5 @@
 package ai.qure.llms.examples;
 
-import ai.qure.llms.client.LLMClient;
 import ai.qure.llms.client.OpenAIClient;
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -40,16 +39,10 @@ public class OpenAIExample {
         String prompt = "Write a one-sentence bedtime story about a unicorn.";
         
         try {
-            // Synchronous API call
+            // Synchronous API call using the model from constructor
             System.out.println("Sending request to OpenAI...");
-            String response = client.generateResponse(null, prompt);
+            String response = client.generateResponse(prompt);
             System.out.println("Response: " + response);
-            
-            // Example with a different model
-            System.out.println("\nTrying with a different model...");
-            response = client.generateResponse("gpt-3.5-turbo", prompt);
-            System.out.println("Response: " + response);
-            
         } catch (Exception e) {
             System.err.println("Error calling OpenAI API: " + e.getMessage());
             e.printStackTrace();
