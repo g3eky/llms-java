@@ -10,21 +10,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Implementation of LLMClient for OpenAI API
+ * Implementation of LLMApiClient for OpenAI API
  */
-public class OpenAIClient implements LLMClient {
+public class OpenAIAPIClient implements LLMApiClient {
     private final HttpClient httpClient;
     private String apiKey;
     private String model;
     private String baseUrl = "https://api.openai.com/v1";
     
     /**
-     * Creates a new OpenAIClient with the specified model and API key
+     * Creates a new OpenAIAPIClient with the specified model and API key
      * 
      * @param model the OpenAI model to use (e.g., "gpt-4.1")
      * @param apiKey the OpenAI API key for authentication
      */
-    public OpenAIClient(String model, String apiKey) {
+    public OpenAIAPIClient(String model, String apiKey) {
         this.model = model;
         this.apiKey = apiKey;
         this.httpClient = HttpClient.newBuilder()

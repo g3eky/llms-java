@@ -20,10 +20,10 @@ This project provides a clean interface for interacting with LLM APIs, with an i
 src/
 └── ai/qure/llms/
     ├── client/
-    │   ├── LLMClient.java       # Interface for LLM clients
-    │   └── OpenAIClient.java    # OpenAI implementation
-    └── examples/
-        └── OpenAIExample.java   # Usage example
+    │   ├── LLMApiClient.java    # Interface for LLM clients
+    │   └── OpenAIAPIClient.java  # OpenAI implementation
+    └── programs/
+        └── OpenAIAPIExample.java   # Usage example
 ```
 
 ## Requirements
@@ -73,14 +73,14 @@ The application can be configured through environment variables or a `.env` file
    mvn exec:java
    ```
 
-   This uses the configuration in the pom.xml file to run the OpenAIExample class.
+   This uses the configuration in the pom.xml file to run the OpenAIAPIExample class.
 
 2. Alternatively, you can specify the main class explicitly
    ```
-   mvn exec:java -Dexec.mainClass="ai.qure.llms.examples.OpenAIExample"
+   mvn exec:java -Dexec.mainClass="ai.qure.llms.programs.OpenAIAPIExample"
    ```
 
-## Using the LLMClient
+## Using the LLMApiClient
 
 ```java
 // Load environment variables from .env file
@@ -91,7 +91,7 @@ String apiKey = dotenv.get("OPENAI_API_KEY");
 String defaultModel = dotenv.get("OPENAI_MODEL", "gpt-4.1");
 
 // Create a client with the specified model
-OpenAIClient client = new OpenAIClient(defaultModel, apiKey);
+OpenAIAPIClient client = new OpenAIAPIClient(defaultModel, apiKey);
 
 // Optional: Set custom API base URL
 String baseUrl = dotenv.get("OPENAI_API_BASE_URL");

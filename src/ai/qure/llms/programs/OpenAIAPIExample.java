@@ -1,12 +1,12 @@
-package ai.qure.llms.examples;
+package ai.qure.llms.programs;
 
-import ai.qure.llms.client.OpenAIClient;
+import ai.qure.llms.client.OpenAIAPIClient;
 import io.github.cdimascio.dotenv.Dotenv;
 
 /**
- * Example demonstrating how to use the OpenAIClient
+ * Example demonstrating how to use the OpenAIAPIClient
  */
-public class OpenAIExample {
+public class OpenAIAPIExample {
     
     public static void main(String[] args) {
         // Load environment variables from .env file with priority over system environment variables
@@ -27,7 +27,7 @@ public class OpenAIExample {
         String defaultModel = dotenv.get("OPENAI_MODEL", "gpt-4.1");
         
         // Create a client with the specified model
-        OpenAIClient client = new OpenAIClient(defaultModel, apiKey);
+        OpenAIAPIClient client = new OpenAIAPIClient(defaultModel, apiKey);
         
         // Set custom API base URL if specified
         String baseUrl = dotenv.get("OPENAI_API_BASE_URL");

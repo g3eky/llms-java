@@ -3,7 +3,7 @@ package ai.qure.llms.client;
 /**
  * Interface for making calls to the LLM API
  */
-public interface LLMClient {
+public interface LLMApiClient {
     
     /**
      * Sends a request to LLM API and returns the response
