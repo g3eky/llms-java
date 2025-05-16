@@ -35,7 +35,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>ai.qure.llms.programs.OpenAIExample</mainClass>
+                    <mainClass>ai.qure.llms.programs.ChatbotProgram</mainClass>
                 </configuration>
             </plugin>
             <plugin>
