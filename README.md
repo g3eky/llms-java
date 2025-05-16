@@ -66,6 +66,18 @@ The application can be configured through environment variables or a `.env` file
    # OPENAI_API_BASE_URL=https://api.openai.com/v1
    ```
 
+## Running Tests
+
+The project includes integration tests that make actual API calls to OpenAI. To run the tests:
+
+1. Make sure you have set up your `.env` file with your OpenAI API key
+2. Run the tests with Maven:
+   ```
+   mvn test
+   ```
+
+Note: The tests require a valid OpenAI API key to run. If you don't have an API key, the tests will fail.
+
 ## How to Run
 
 1. After configuration, run the example
