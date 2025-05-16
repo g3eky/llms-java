@@ -34,17 +34,30 @@ public class OpenAIAPIClient implements LLMApiClient {
     }
     
     @Override
-    public String generateResponse(String input) throws Exception {
+    public ApiResponse generateResponse(ApiRequest request) throws Exception {
         // Using chat completions API
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", this.model);
         
         // Set up messages for the chat completion
         JSONArray messages = new JSONArray();
-        JSONObject message = new JSONObject();
-        message.put("role", "user");
-        message.put("content", input);
-        messages.put(message);
+        
+        // Add history messages
+        for (Message message : request.getHistory()) {
+            JSONObject messageObj = new JSONObject();
+            messageObj.put("role", message.getRole().toString().toLowerCase());
+            messageObj.put("content", message.getContent());
+            messages.put(messageObj);
+        }
+        
+        // Add current input as a user message
+        if (request.getInputToken() != null && !request.getInputToken().isEmpty()) {
+            JSONObject message = new JSONObject();
+            message.put("role", "user");
+            message.put("content", request.getInputToken());
+            messages.put(message);
+        }
+        
         requestBody.put("messages", messages);
         
         // Adding common optional parameters
@@ -53,14 +66,14 @@ public class OpenAIAPIClient implements LLMApiClient {
         
         String fullUrl = baseUrl + "/chat/completions";
         
-        HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(fullUrl))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + apiKey)
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
                 .build();
         
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         
         if (response.statusCode() != 200) {
             throw new IOException("API request failed with status code: " + response.statusCode() + 
@@ -73,9 +86,20 @@ public class OpenAIAPIClient implements LLMApiClient {
         if (choices.length() > 0) {
             JSONObject choice = choices.getJSONObject(0);
             JSONObject responseMessage = choice.getJSONObject("message");
-            return responseMessage.getString("content");
+            String content = responseMessage.getString("content");
+            String role = responseMessage.getString("role");
+            
+            // Convert OpenAI role to our Role enum
+            Message.Role messageRole = Message.Role.ASSISTANT; // Default
+            if ("user".equalsIgnoreCase(role)) {
+                messageRole = Message.Role.USER;
+            } else if ("system".equalsIgnoreCase(role)) {
+                messageRole = Message.Role.SYSTEM;
+            }
+            
+            return new ApiResponse(content, messageRole);
         } else {
-            return jsonResponse.toString();
+            return new ApiResponse(jsonResponse.toString(), Message.Role.ASSISTANT);
         }
     }
     

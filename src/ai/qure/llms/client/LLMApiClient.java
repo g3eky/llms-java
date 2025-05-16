@@ -8,9 +8,9 @@ public interface LLMApiClient {
     /**
      * Sends a request to LLM API and returns the response
      * 
-     * @param input The input text/prompt to send to the model
+     * @param request The API request containing conversation history and input
      * @return The response from the API
      * @throws Exception If an error occurs during the API call
      */
-    String generateResponse(String input) throws Exception;
+    ApiResponse generateResponse(ApiRequest request) throws Exception;
 } 

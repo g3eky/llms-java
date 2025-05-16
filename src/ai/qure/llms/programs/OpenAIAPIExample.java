@@ -1,7 +1,11 @@
 package ai.qure.llms.programs;
 
 import ai.qure.llms.client.OpenAIAPIClient;
+import ai.qure.llms.client.ApiRequest;
+import ai.qure.llms.client.ApiResponse;
+import ai.qure.llms.client.Message;
 import io.github.cdimascio.dotenv.Dotenv;
+import java.util.ArrayList;
 
 /**
  * Example demonstrating how to use the OpenAIAPIClient
@@ -41,8 +45,9 @@ public class OpenAIAPIExample {
         try {
             // Synchronous API call using the model from constructor
             System.out.println("Sending request to OpenAI...");
-            String response = client.generateResponse(prompt);
-            System.out.println("Response: " + response);
+            ApiRequest request = new ApiRequest(new ArrayList<>(), prompt);
+            ApiResponse response = client.generateResponse(request);
+            System.out.println("Response: " + response.getContent());
         } catch (Exception e) {
             System.err.println("Error calling OpenAI API: " + e.getMessage());
             e.printStackTrace();
