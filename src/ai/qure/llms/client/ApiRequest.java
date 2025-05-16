@@ -9,18 +9,22 @@ import java.util.List;
 public class ApiRequest {
     private List<Message> history;
     private String inputToken;
+    private List<Tool> tools;
 
     public ApiRequest() {
         this.history = new ArrayList<>();
+        this.tools = new ArrayList<>();
     }
 
     public ApiRequest(String inputToken) {
         this.history = new ArrayList<>();
+        this.tools = new ArrayList<>();
         this.inputToken = inputToken;
     }
 
     public ApiRequest(List<Message> history, String inputToken) {
         this.history = history;
+        this.tools = new ArrayList<>();
         this.inputToken = inputToken;
     }
 
@@ -40,7 +44,27 @@ public class ApiRequest {
         this.inputToken = inputToken;
     }
 
+    public List<Tool> getTools() {
+        return tools;
+    }
+
+    public void setTools(List<Tool> tools) {
+        this.tools = tools;
+    }
+
     public void addMessage(Message message) {
         this.history.add(message);
+    }
+
+    public void addTool(Tool tool) {
+        this.tools.add(tool);
+    }
+
+    public void addTools(List<Tool> tools) {
+        this.tools.addAll(tools);
+    }
+
+    public void clearTools() {
+        this.tools.clear();
     }
 } 
